@@ -28,7 +28,7 @@ set(PICO_BOARD pico CACHE STRING "Board type")
 # Pull in Raspberry Pi Pico SDK (must be before project)
 include(pico_sdk_import.cmake)
 
-project(cpp_p C CXX ASM)
+project(Project C CXX ASM)
 
 set(PICO_CXX_ENABLE_EXCEPTIONS 1)
 
@@ -39,38 +39,22 @@ pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(cpp_p cpp_p.cpp )
+add_executable(Project main.cpp )
 
-pico_set_program_name(cpp_p "cpp_p")
-pico_set_program_version(cpp_p "0.1")
+pico_set_program_name(Project "Project")
+pico_set_program_version(Project "0.1")
 
-# Generate PIO header
-pico_generate_pio_header(cpp_p ${CMAKE_CURRENT_LIST_DIR}/blink.pio)
 
 # Modify the below lines to enable/disable output over UART/USB
-pico_enable_stdio_uart(cpp_p 1)
-pico_enable_stdio_usb(cpp_p 1)
+pico_enable_stdio_uart(Project 1)
+pico_enable_stdio_usb(Project 1)
 
 # Add the standard library to the build
-target_link_libraries(cpp_p
+target_link_libraries(Project
         pico_stdlib)
 
 # Add the standard include files to the build
-target_include_directories(cpp_p PRIVATE
+target_include_directories(Project PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}
 )
-
-# Add any user requested libraries
-target_link_libraries(cpp_p 
-        hardware_spi
-        hardware_i2c
-        hardware_dma
-        hardware_pio
-        hardware_interp
-        hardware_timer
-        hardware_watchdog
-        hardware_clocks
-        )
-
-pico_add_extra_outputs(cpp_p)
-
+pico_add_extra_outputs(Project)
