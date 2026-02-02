@@ -12,6 +12,7 @@
         const uint RF_VCC = 25;
         const uint RF_DATA = 25;
         //接地 const uint RF_GND = GND;
-    
+//无线RF同步信号
+const uint RF_SYNC_CODE = 0b1000101011000011;
     
 #endif
