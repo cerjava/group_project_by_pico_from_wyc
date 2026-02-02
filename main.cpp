@@ -1,14 +1,10 @@
 #include "pico/stdlib.h"
- 
-const uint LED_PIN = 25;
+#include "dataLib.h"
  
 int main() {
-    gpio_init(LED_PIN);
-    gpio_set_dir(LED_PIN, GPIO_OUT);
-    while (1) {
-        gpio_put(LED_PIN, 0);
-        sleep_ms(250);
-        gpio_put(LED_PIN, 1);
-        sleep_ms(1000);
-    }
+    gpio_init(ON_BOARD_LED);
+    gpio_set_dir(ON_BOARD_LED, GPIO_OUT);
+    gpio_put(ON_BOARD_LED, 0);
+    sleep_ms(250);
+    gpio_put(ON_BOARD_LED, 1);
 }
