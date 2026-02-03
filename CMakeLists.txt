@@ -55,6 +55,8 @@ target_link_libraries(Project
         hardware_spi
         hardware_i2c
         hardware_dma
+        hardware_adc
+        hardware_pwm
         hardware_pio
         hardware_interp
         hardware_timer
