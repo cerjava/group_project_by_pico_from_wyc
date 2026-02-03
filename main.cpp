@@ -1,12 +1,5 @@
 #include "RCCar.h"
 
-
-
-
-
-
-
-
 int main() {
     gpio_init(ON_BOARD_LED);
     gpio_set_dir(ON_BOARD_LED, GPIO_OUT);
