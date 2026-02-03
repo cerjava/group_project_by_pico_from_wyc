@@ -1,0 +1,3 @@
+[submodule "lib/pico_nrf24"]
+	path = lib/pico_nrf24
+	url = https://github.com/andyrids/pico-nrf24.git
