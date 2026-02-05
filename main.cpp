@@ -1,6 +1,5 @@
 #include "RCCar.h"
 
-
 int main() {
 
     stdio_init_all();
