@@ -11,7 +11,16 @@ int main() {
 
     initMotorDriver();
 
-    setPowerMotor(255, true);
+    setPowerMotor(65535, true);
+
+
+    bool left = true;
+    while(true)
+    {
+        setSteeringMotor(65535, left);
+        left = !left;
+        sleep_ms(2000);
+    }
 
     gpio_init(Buzzer);
     gpio_set_dir(Buzzer, GPIO_OUT);

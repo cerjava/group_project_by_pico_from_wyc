@@ -32,14 +32,14 @@ void initMotorDriver();
  * @param speed 速度值，范围0-255。0为停止，255为全速
  * @param ahead 方向控制。true为前进，false为后退
  */
-void setPowerMotor(uint8_t speed, bool ahead);
+void setPowerMotor(uint16_t speed, bool ahead);
 
 /**
  * @brief 控制转向电机的速度和方向
  * @param speed 速度值，范围0-255。0为停止，255为全速
  * @param left 方向控制。true为左转，false为右转
  */
-void setSteeringMotor(uint8_t speed, bool left);
+void setSteeringMotor(uint16_t speed, bool left);
 
 /**
  * @brief 动力电机紧急刹车
