@@ -39,7 +39,10 @@ pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(Project main.cpp )
+add_executable(Project main.cpp
+        RCCar.h
+        RemoteControl.cpp
+        MotorControl.cpp )
 
 pico_set_program_name(Project "Project")
 pico_set_program_version(Project "0.1")
