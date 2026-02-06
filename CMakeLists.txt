@@ -37,8 +37,10 @@ set(PICO_CXX_ENABLE_RTTI 1)
 # Initialise the Raspberry Pi Pico SDK
 pico_sdk_init()
 
-# Add executable. Default name is the project name, version 0.1
+add_subdirectory(lib/pico_nrf24)
+target_link_libraries(Project PRIVATE pico_nrf24) 
 
+# Add executable. Default name is the project name, version 0.1
 add_executable(Project main.cpp
         RCCar.h
         RemoteControl.cpp

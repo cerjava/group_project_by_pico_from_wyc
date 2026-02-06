@@ -19,9 +19,9 @@ int main(void)
 
   // GPIO pin numbers
   pin_manager_t my_pins = { 
-    .sck = 2,
     .copi = 3, 
     .cipo = 4, 
+    .sck = 2,
     .csn = 5, 
     .ce = 6 
   };
@@ -33,8 +33,6 @@ int main(void)
    * function, then the default configuration will be used.
    */
   nrf_manager_t my_config = {
-    // RF Channel 
-    .channel = 120,
 
     // AW_3_BYTES, AW_4_BYTES, AW_5_BYTES
     .address_width = AW_5_BYTES,
@@ -42,17 +40,20 @@ int main(void)
     // dynamic payloads: DYNPD_ENABLE, DYNPD_DISABLE
     .dyn_payloads = DYNPD_ENABLE,
 
+    // retransmission delay: ARD_250US, ARD_500US, ARD_750US, ARD_1000US
+    .retr_delay = ARD_500US,
+
+    // retransmission count: ARC_NONE...ARC_15RT
+    .retr_count = ARC_10RT,
+
     // data rate: RF_DR_250KBPS, RF_DR_1MBPS, RF_DR_2MBPS
     .data_rate = RF_DR_1MBPS,
 
     // RF_PWR_NEG_18DBM, RF_PWR_NEG_12DBM, RF_PWR_NEG_6DBM, RF_PWR_0DBM
     .power = RF_PWR_NEG_12DBM,
 
-    // retransmission count: ARC_NONE...ARC_15RT
-    .retr_count = ARC_10RT,
-
-    // retransmission delay: ARD_250US, ARD_500US, ARD_750US, ARD_1000US
-    .retr_delay = ARD_500US 
+    // RF Channel 
+    .channel = 120
   };
 
   // SPI baudrate
