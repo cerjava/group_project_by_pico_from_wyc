@@ -1,6 +1,6 @@
 #pragma once
 #include "pico/stdlib.h"
-#include "lib\pico_nrf24\lib\nrf24l01\nrf24_driver.h"
+#include "nrf24_driver.h"
 #include "vector"
 #include "cstdio"
 #include "string"
