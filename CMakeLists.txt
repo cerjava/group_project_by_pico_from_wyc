@@ -37,9 +37,6 @@ set(PICO_CXX_ENABLE_RTTI 1)
 # Initialise the Raspberry Pi Pico SDK
 pico_sdk_init()
 
-add_subdirectory(lib/pico_nrf24)
-target_link_libraries(Project PRIVATE pico_nrf24) 
-
 # Add executable. Default name is the project name, version 0.1
 
 add_executable(Project main.cpp
@@ -55,19 +52,31 @@ pico_set_program_version(Project "0.1")
 pico_enable_stdio_uart(Project 1)
 pico_enable_stdio_usb(Project 1)
 
+# 添加并链接NRF24库，以及所有其他标准库
+add_subdirectory(lib/pico_nrf24/lib/nrf24l01)
+
 # Add the standard library to the build
 target_link_libraries(Project
-        pico_stdlib
-        hardware_spi
-        hardware_i2c
-        hardware_dma
-        hardware_adc
-        hardware_pwm
-        hardware_pio
-        hardware_interp
-        hardware_timer
-        hardware_watchdog
-        hardware_clocks)
+    PRIVATE
+    # 注意：移除了 pico_stdlib、hardware_spi、hardware_gpio
+    # 因为它们已经通过 nrf24_driver 传递过来了
+    hardware_i2c
+    hardware_dma
+    hardware_adc
+    hardware_pwm
+    hardware_pio
+    hardware_interp
+    hardware_timer
+    hardware_watchdog
+    hardware_clocks
+)
+
+# 接口库必须链接在最后
+# 这确保所有依赖正确传递
+target_link_libraries(Project
+    PRIVATE
+    nrf24_driver  # 接口库放在最后
+)
 
 # Add the standard include files to the build
 target_include_directories(Project PRIVATE

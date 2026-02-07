@@ -1,6 +1,15 @@
 #pragma once
 #include "pico/stdlib.h"
-#include "lib\pico_nrf24\lib\nrf24l01\nrf24_driver.h"
+// 注意：nrf24_driver.h是C语言头文件，在C++中使用需要extern "C"包装
+// 这是因为C++会对函数名进行名称修饰，而C语言不会
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+  #include "nrf24_driver.h"
+#ifdef __cplusplus
+}
+#endif
 #include "vector"
 #include "cstdio"
 #include "string"
