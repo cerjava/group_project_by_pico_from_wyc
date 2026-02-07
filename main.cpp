@@ -10,6 +10,10 @@ int main(void)
   // initialize all present standard stdio types
   stdio_init_all();
 
+    gpio_init(25);
+    gpio_set_dir(25, GPIO_OUT);
+    gpio_put(25, 1);
+
   // wait until the CDC ACM (serial port emulation) is connected
   while (!tud_cdc_connected()) 
   {
@@ -96,6 +100,8 @@ int main(void)
 
   // holds payload_two struct sent by the transmitter
   payload_two_t payload_two;
+
+  printf("Start finished\n");
 
   while (1)
   {
