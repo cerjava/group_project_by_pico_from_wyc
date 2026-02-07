@@ -16,6 +16,7 @@ extern "C"
 #include "hardware\adc.h"
 #include "hardware\pwm.h"
 #include "cstdint"
+#include <tusb.h> // TinyUSB tud_cdc_connected()
 
 // 引脚定义（应与实际硬件接线一致）
 // 注意：此处仅为声明，具体引脚编号在主程序前根据接线调整
