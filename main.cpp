@@ -9,6 +9,10 @@ int main(void)
   // initialize all present standard stdio types
   stdio_init_all();
 
+    gpio_init(25);
+    gpio_set_dir(25, GPIO_OUT);
+    gpio_put(25, 1);
+
   // wait until the CDC ACM (serial port emulation) is connected
   while (!tud_cdc_connected()) 
   {
@@ -88,20 +92,23 @@ int main(void)
   uint64_t time_sent = 0; // time packet was sent
   uint64_t time_reply = 0; // response time after packet sent
 
+  printf("Start ready\n");
+
   while (1) {
 
+    printf("try");
     // send to receiver's DATA_PIPE_0 address
     my_nrf.tx_destination((uint8_t[]){0x37,0x37,0x37,0x37,0x37});
-
+    printf("1");
     // time packet was sent
     time_sent = to_us_since_boot(get_absolute_time()); // time sent
-
+    printf("2");
     // send packet to receiver's DATA_PIPE_0 address
     success = my_nrf.send_packet(&payload_zero, sizeof(payload_zero));
-
+    printf("3");
     // time auto-acknowledge was received
     time_reply = to_us_since_boot(get_absolute_time()); // response time
-
+    printf("4");
     if (success)
     {
       printf("\nPacket sent:- Response: %lluμS | Payload: %d\n", time_reply - time_sent, payload_zero);
@@ -112,16 +119,16 @@ int main(void)
     }
 
     sleep_ms(3000);
-
+    printf("1");
     // send to receiver's DATA_PIPE_1 address
     my_nrf.tx_destination((uint8_t[]){0xC7,0xC7,0xC7,0xC7,0xC7});
-
+    printf("2");
     // time packet was sent
     time_sent = to_us_since_boot(get_absolute_time()); // time sent
-
+    printf("3");
     // send packet to receiver's DATA_PIPE_1 address
     success = my_nrf.send_packet(payload_one, sizeof(payload_one));
-    
+    printf("4");
     // time auto-acknowledge was received
     time_reply = to_us_since_boot(get_absolute_time()); // response time
 
