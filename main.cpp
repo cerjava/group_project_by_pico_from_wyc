@@ -4,7 +4,6 @@
 // 有啥用？
 const uint RF_SYNC_CODE = 0b1000101011000011;
 
-#include <tusb.h>
 
 int main(void)
 {
@@ -19,11 +18,11 @@ int main(void)
 
   // GPIO pin numbers
   pin_manager_t my_pins = { 
-    .copi = 3, 
-    .cipo = 4, 
-    .sck = 2,
-    .csn = 5, 
-    .ce = 6 
+    .copi = 6, 
+    .cipo = 7, 
+    .sck = 5,
+    .csn = 4, 
+    .ce = 3 
   };
 
   /**
