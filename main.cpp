@@ -142,32 +142,31 @@ int main() {
 
     // 5. 接收循环
     uint8_t rx_buf[32];
+    printf("接收端准备就绪，等待数据...\n");
     while (1) {
-        // 读取 STATUS 寄存器，检查 RX_DR 位
         uint8_t status = nrf_read_reg(0x07);
-        if (status & 0x40) {  // RX_DR 位置1，表示收到数据
-            // 获取数据长度（动态负载）
-            uint8_t rx_len = 0;
+        if (status & 0x40) {  // RX_DR
+            // 读取负载长度
             cs_select();
-            spi_xfer(0x60);  // R_RX_PL_WID 命令
-            rx_len = spi_xfer(0xFF);
+            spi_xfer(0x60);  // R_RX_PL_WID
+            uint8_t len = spi_xfer(0xFF);
             cs_deselect();
-            if (rx_len > 32) rx_len = 32;  // 安全保护
-
-            // 读取负载
-            nrf_read_rx_payload(rx_buf, rx_len);
-
-            // 清除 RX_DR 中断
+            if (len > 32) len = 32;
+            
+            uint8_t buf[32];
+            cs_select();
+            spi_xfer(0x61);  // R_RX_PAYLOAD
+            for (int i=0; i<len; i++) buf[i] = spi_xfer(0xFF);
+            cs_deselect();
+            
+            // 清除 RX_DR 标志
             nrf_write_reg(0x07, 0x40);
-
-            printf("📥 收到 %d 字节: ", rx_len);
-            for (int i = 0; i < rx_len; i++) {
-                printf("%02X ", rx_buf[i]);
-            }
-            // 假设发送的是单字节数字，直接显示
-            if (rx_len == 1) printf("(数据值: %d)", rx_buf[0]);
+            
+            printf("📥 收到 %d 字节: ", len);
+            for (int i=0; i<len; i++) printf("%02X ", buf[i]);
+            if (len == 1) printf("(值=%d)", buf[0]);
             printf("\n");
         }
-        sleep_ms(10);
+    sleep_ms(10);
     }
 }
